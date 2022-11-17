@@ -8,9 +8,9 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>해외음악 삽입 Logic</title>
+<title>국내음악 삽입 Logic</title>
 </head>
-<body>
+<body> 
 	<%@ include file="dbconn.jsp"%>
 
 	<%
