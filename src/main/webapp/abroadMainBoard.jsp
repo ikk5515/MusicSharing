@@ -28,6 +28,7 @@
 				var currentRow = $(this).closest('tr');
 				var col1 = currentRow.find('td:eq(0)').text();
 				location.href = "deleteAbroad.jsp?abrno=" + col1;
+
 			}
 
 		});
@@ -425,13 +426,16 @@ iframe {
 			<!-- Page content-->
 			<%
 			while (rs1.next()) {
-				while (rs.next()) {
-					count = rs.getInt(1);
+					count = rs1.getInt(1);
 					break;
-				}
+			}
+			int countabrno = 0;
+			while (rs.next()) {
+				countabrno = rs.getInt(1);
+				break;
 			}
 
-			final int ROWSIZE = 10; // 한 페이지에 보일 게시물 
+			final int ROWSIZE = 6; // 한 페이지에 보일 게시물
 
 			final int BLOCK = 5; // 아래에 보일 페이지 최대 개수 1-5 / 6-10
 
@@ -440,8 +444,7 @@ iframe {
 			if (request.getParameter("pg") != null) {
 				pg = Integer.parseInt(request.getParameter("pg"));
 			}
-
-			int start = (pg * ROWSIZE) - (ROWSIZE - 1);
+			int start = (pg * (ROWSIZE)) - (ROWSIZE);
 			int end = (pg * ROWSIZE);
 
 			int allPage = 0; // 전체 페이지 
@@ -458,7 +461,7 @@ iframe {
 			Statement stat2 = null;
 			ResultSet rs2 = null;
 
-			String sqlList = "SELECT * from abroadMusic where abrno >= " + start + " and abrno <= " + end + " order by 1";
+			String sqlList = "SELECT * from abroadMusic order by 1 limit " + start + ", "+ 6 + "";
 
 			stat2 = conn.createStatement(); /* Statment 객체생성 */
 			rs2 = stat2.executeQuery(sqlList);
@@ -506,7 +509,7 @@ iframe {
 								<c:forEach var="abroadMusic" items="${list }">
 									<table style="flex: 0.5; table-layout: fixed;">
 										<tr class="tr-hover">
-											<td><div class="cell" data-title="번호" id="abrno">
+											<td><div class="cell" data-title="번호">
 													${abroadMusic.getAbrno() }</div></td>
 											<td><div class="cell" data-title="제목">
 													${abroadMusic.getAbrTitle() }</div></td>

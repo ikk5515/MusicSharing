@@ -27,7 +27,7 @@
 			} else {
 				var currentRow = $(this).closest('tr');
 				var col1 = currentRow.find('td:eq(0)').text()
-				location.href="deleteKor.jsp?korno="+col1;
+				location.href = "deleteKor.jsp?korno=" + col1;
 
 			}
 
@@ -433,13 +433,16 @@ iframe {
 			<!-- Page content-->
 			<%
 			while (rs1.next()) {
-				while (rs.next()) {
-					count = rs.getInt(1);
-					break;
-				}
+				count = rs1.getInt(1);
+				break;
+			}
+			int countkorno = 0;
+			while (rs.next()) {
+				countkorno = rs.getInt(1);
+				break;
 			}
 
-			final int ROWSIZE = 10; // 한 페이지에 보일 게시물 
+			final int ROWSIZE = 6; // 한 페이지에 보일 게시물
 
 			final int BLOCK = 5; // 아래에 보일 페이지 최대 개수 1-5 / 6-10
 
@@ -448,8 +451,7 @@ iframe {
 			if (request.getParameter("pg") != null) {
 				pg = Integer.parseInt(request.getParameter("pg"));
 			}
-
-			int start = (pg * ROWSIZE) - (ROWSIZE - 1);
+			int start = (pg * (ROWSIZE)) - (ROWSIZE);
 			int end = (pg * ROWSIZE);
 
 			int allPage = 0; // 전체 페이지 
@@ -465,8 +467,7 @@ iframe {
 
 			Statement stat2 = null;
 			ResultSet rs2 = null;
-
-			String sqlList = "SELECT * from korMusic where korno >= " + start + " and korno <= " + end + " order by 1";
+			String sqlList = "SELECT * from korMusic order by 1 limit " + start + ", "+ 6 + "";
 
 			stat2 = conn.createStatement(); /* Statment 객체생성 */
 			rs2 = stat2.executeQuery(sqlList);
