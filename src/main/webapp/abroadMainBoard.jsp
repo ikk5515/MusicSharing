@@ -18,6 +18,22 @@
 <script src="js/scripts2.js"></script>
 <script
 	src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+
+<script type="text/javascript">
+	$('document').ready(function() {
+		$('#btndelete input').on('click', function() {
+			if (!confirm("정말 삭제하시겠습니까?")) {
+				return false;
+			} else {
+				var currentRow = $(this).closest('tr');
+				var col1 = currentRow.find('td:eq(0)').text();
+				location.href = "deleteAbroad.jsp?abrno=" + col1;
+			}
+
+		});
+	});
+</script>
+
 <style>
 .container {
 	width: 70%;
@@ -143,8 +159,10 @@ iframe {
 	min-height: 100vh;
 	background: #c4d3f6;
 	display: -webkit-box;
-	display: -webkit-flex; display : -moz-box; display : -ms-flexbox;
-	display : flex;
+	display: -webkit-flex;
+	display: -moz-box;
+	display: -ms-flexbox;
+	display: flex;
 	align-items: center;
 	justify-content: center;
 	flex-wrap: wrap;
@@ -154,6 +172,8 @@ iframe {
 	display: -ms-flexbox;
 	display: flex;
 	display: -moz-box;
+	display: -ms-flexbox;
+	display: flex;
 	display: -ms-flexbox;
 	display: flex;
 }
@@ -465,7 +485,7 @@ iframe {
 							style="margin-bottom: 20%; margin-top: 20%; margin-left: 35%; font-size: 2.25rem; background-color: #c4d3f6;">해외
 							음악 추천 목록</a>
 						<div class="table">
-						<a>총 등록된 해외 음악 수: ${count }</a>
+							<a>총 등록된 해외 음악 수: ${count }</a>
 							<div class="row header">
 								<table style="flex: 0.5;">
 									<tr>
@@ -486,25 +506,25 @@ iframe {
 								<c:forEach var="abroadMusic" items="${list }">
 									<table style="flex: 0.5; table-layout: fixed;">
 										<tr class="tr-hover">
-											<td><div class="cell" data-title="번호">
-													${abroadMusic.getAbrno() }
-												</div></td>
+											<td><div class="cell" data-title="번호" id="abrno">
+													${abroadMusic.getAbrno() }</div></td>
 											<td><div class="cell" data-title="제목">
-													${abroadMusic.getAbrTitle() }
-												</div></td>
+													${abroadMusic.getAbrTitle() }</div></td>
 											<td><div class="cell" data-title="가수">
-													${abroadMusic.getAbrSinger() }
-												</div></td>
+													${abroadMusic.getAbrSinger() }</div></td>
 											<td><div class="cell" data-title="유튜브">
-													<a href="${abroadMusic.getAbrYoutube()}"><img src="img/play-button.png" style="width: 35px; height: 35px;"></a>
+													<a href="${abroadMusic.getAbrYoutube()}"><img
+														src="img/play-button.png"
+														style="width: 35px; height: 35px;"></a>
 												</div></td>
 											<td><div class="cell" data-title="장르">
-													${abroadMusic.getAbrKind() }
-												</div></td>
+													${abroadMusic.getAbrKind() }</div></td>
 											<td><div class="cell" data-title="작성자">${abroadMusic.getUserNick() }</div></td>
 											<td><div class="cell" data-title="게시 날짜">${abroadMusic.getAbrdate() }</div></td>
 											<c:if test="${userId eq 'admin' }">
-												<td><button class="btn btn-danger" data-title="삭제" style="width: 80px;height: 40px; margin-left: 17px;">삭제</button></td>
+												<td id="btndelete"><input type="submit" value="삭제"
+													class="btn btn-danger"
+													style="width: 80px; height: 40px; margin-left: 17px;"></td>
 											</c:if>
 										</tr>
 									</table>
