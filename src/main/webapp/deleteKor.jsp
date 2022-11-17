@@ -14,13 +14,12 @@
 
 	<%
 	String korno = request.getParameter("korno");
-	System.out.println(korno);
 	
 	PreparedStatement pstat = null;
 	ResultSet rs = null;
 	
 	PreparedStatement pstat1 = null;
-	ResultSet rs1 = null;
+
 	
 	
 	String sql1 = "select * from korMusic where korno = ?";
@@ -32,7 +31,7 @@
 	rs = pstat.executeQuery();
 	
 	int kornoCheck = 0;
-	
+	int result = 0;
 	if (rs.next()) {
 		if (rs.getString(1).equals(korno)){
 			kornoCheck = 1;	
@@ -40,13 +39,12 @@
 		
 		pstat1 = conn.prepareStatement(sql2);
 		pstat1.setString(1, korno);
-		rs1 = pstat1.executeQuery();
+		result = pstat1.executeUpdate();
 	} else {
 		kornoCheck = -1;
 	}
 	request.setAttribute("kornoCheck", kornoCheck);
-	System.out.println(korno);
-	System.out.println(kornoCheck);
+	request.setAttribute("result", result);
 	conn.close();
 	rs.close();
 	pstat.close();

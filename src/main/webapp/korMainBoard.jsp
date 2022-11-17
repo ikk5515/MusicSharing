@@ -20,15 +20,19 @@
 	src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 
 <script type="text/javascript">
-function btnsubmit() {
-	var deleteConfirm = confirm('정말로 삭제하시겠습니까?');
-	if (!deleteConfirm) {
-		return false;
-	} else {
-		alert($("#korno"));	
-		
-	}	
-}
+	$('document').ready(function() {
+		$('#btndelete input').on('click', function() {
+			if (!confirm("정말 삭제하시겠습니까?")) {
+				return false;
+			} else {
+				var currentRow = $(this).closest('tr');
+				var col1 = currentRow.find('td:eq(0)').text()
+				location.href="deleteKor.jsp?korno="+col1;
+
+			}
+
+		});
+	});
 </script>
 
 <style>
@@ -526,9 +530,9 @@ iframe {
 											<td><div class="cell" data-title="작성자">${korMusic.getUserNick() }</div></td>
 											<td><div class="cell" data-title="게시 날짜">${korMusic.getKordate() }</div></td>
 											<c:if test="${userId eq 'admin' }">
-												<td><button onclick="return btnsubmit()"
-														type="submit" class="btn btn-danger"
-														style="width: 80px; height: 40px; margin-left: 17px;">삭제</button>
+												<td id="btndelete"><input type="submit" value="삭제"
+													class="btn btn-danger"
+													style="width: 80px; height: 40px; margin-left: 17px;"></td>
 											</c:if>
 										</tr>
 									</table>
