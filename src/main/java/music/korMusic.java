@@ -9,7 +9,6 @@ public class korMusic {
 	private String UserNick;
 	private String kordate;
 	
-	
 	public String getUserNick() {
 		return UserNick;
 	}
