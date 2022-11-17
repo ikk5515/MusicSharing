@@ -36,7 +36,6 @@
 	font-size: 2.25rem;
 	margin-left: 13%;
 	margin-bottom: 60%;
-	
 }
 
 input[type="text"] {
