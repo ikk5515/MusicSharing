@@ -63,6 +63,5 @@
 	rs.close();
 	%>
 	<jsp:forward page="loginAction.jsp"></jsp:forward>
-
 </body>
 </html>
