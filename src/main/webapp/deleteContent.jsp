@@ -10,7 +10,7 @@
 </head>
 <body>
 
-	<%@ include file="/dbconn.jsp"%>
+	<%@ include file="dbconn.jsp"%>
 
 	<%
 	String contentNo = request.getParameter("contentNo");
