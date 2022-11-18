@@ -29,7 +29,7 @@
 				var currentRow = $(this).closest('tr');
 				var col1 = currentRow.find('td:eq(0)').text();
 				location.href = "deleteContent.jsp?contentNo=" +col1;
-
+				return false;
 			}
 
 		});
@@ -41,6 +41,7 @@
 		$('#tableClick tr').on('click', function() {
 			var currentRow = $(this).closest('tr');
 			var col1 = currentRow.find('td:eq(0)').text();
+			location.href = "contentSee.jsp?contentNo=" +col1;
 		});
 	});
 </script>
@@ -199,9 +200,10 @@ iframe {
 }
 
 .wrap-table100 {
-	width: 960px;
+	width: 1100px;
 	border-radius: 10px;
 	overflow: hidden;
+	min-height: 75vh;
 }
 
 .table {
@@ -269,7 +271,6 @@ iframe {
 	font-weight: unset !important;
 	padding-top: 20px;
 	padding-bottom: 20px;
-	border-bottom: 1px solid #f2f2f2;
 }
 
 .row.header .cell {
@@ -516,10 +517,10 @@ iframe {
 									<tr>
 										<td><div class="cell">번호</div></td>
 										<td><div class="cell">제목</div></td>
-										<td><div class="cell"><a style="margin-left: 35px;">작성자</a></div></td>
-										<td><div class="cell"><a style="margin-right: 70px; margin-left: 70px;">날짜</a></div></td>
+										<td><div class="cell"><a style="margin-left: 50px;">작성자</a></div></td>
+										<td><div class="cell"><a style="margin-left: 70px;">등록일</a></div></td>
 										<c:if test="${userId eq 'admin' }">
-											<td><div class="cell"><a style="margin-left: 50px;">삭제</a></div></td>
+											<td><div class="cell"><a style="margin-left: 40px;">삭제</a></div></td>
 										</c:if>
 									</tr>
 								</table>
@@ -527,18 +528,18 @@ iframe {
 							<div class="row">
 								<c:forEach var="contentAll" items="${list }">
 									<table id="tableClick" class="text-left"
-										style="flex: 0.5; table-layout: fixed;">
+										style="flex: 0.5; table-layout: fixed; height: 85px;">
 										<tr class="tr-hover">
 											<td><div class="cell" data-title="번호" id="contentNo">
 													${contentAll.getContentNo() }</div></td>
 											<td><div class="cell" data-title="제목">
 													${contentAll.getContentTitle() }</div></td>
-											<td><div class="cell" data-title="작성자"><a style="margin-left: 15px;">${contentAll.getUserNick() }</a></div></td>
-											<td><div class="cell" data-title="게시 날짜">${contentAll.getContentDate() }</div></td>
+											<td><div class="cell" data-title="작성자"><a style="margin-left: 17px;">${contentAll.getUserNick() }</a></div></td>
+											<td><div class="cell" data-title="등록일">${contentAll.getContentDate() }</div></td>
 											<c:if test="${userId eq 'admin' }">
 												<td id="btndelete"><input type="submit" value="삭제"
 													class="btn btn-danger"
-													style="width: 80px; height: 40px; margin-left: 55px;"></td>
+													style="width: 80px; height: 40px; margin-left: 50px;"></td>
 											</c:if>
 										</tr>
 									</table>
