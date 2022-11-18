@@ -101,7 +101,7 @@ input[type="text"]:focus {
 					class="list-group-item list-group-item-action list-group-item-light p-3"
 					href="boardQuery.jsp?tab=abroadMusic">해외 음악</a> <a
 					class="list-group-item list-group-item-action list-group-item-light p-3"
-					href="#!">질문 게시판</a>
+					href="qaMainBoard.jsp">질문 게시판</a>
 			</div>
 		</div>
 		<div id="page-content-wrapper">
