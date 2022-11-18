@@ -36,6 +36,13 @@
 </script>
 
 <style>
+
+.page-center {
+	width: 100%;
+	justify-content: center;
+	text-align: center;
+}
+
 .container {
 	width: 70%;
 	margin-top: 5%;
@@ -53,8 +60,6 @@
 
 .page-icon li {
 	text-align: center;
-	margin-left: 40%;
-	margin-right: -40%;
 	display: block;
 	width: 10%;
 	height: 10%;
@@ -548,7 +553,7 @@ iframe {
 							등록하기</a>
 						<div class="page-icon">
 							<nav aria-label="Page navigation">
-								<ul class="pagination pagination-lg">
+								<ul class="pagination pagination-lg page-center">
 									<%
 									if (pg > BLOCK) {
 									%>
