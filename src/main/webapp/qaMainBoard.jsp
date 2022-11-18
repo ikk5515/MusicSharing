@@ -1,3 +1,4 @@
+<%@page import="javax.swing.text.AbstractDocument.Content"%>
 <%@page import="java.sql.ResultSet"%>
 <%@page import="java.sql.Statement"%>
 <%@page import="music.*"%>
@@ -19,6 +20,32 @@
 <script
 	src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 
+<script type="text/javascript">
+	$('document').ready(function() {
+		$('#btndelete input').on('click', function() {
+			if (!confirm("정말 삭제하시겠습니까?")) {
+				return false;
+			} else {
+				var currentRow = $(this).closest('tr');
+				var col1 = currentRow.find('td:eq(0)').text();
+				location.href = "deleteContent.jsp?contentNo=" +col1;
+
+			}
+
+		});
+	}); 
+</script>
+
+<script type="text/javascript">
+	$('document').ready(function() {
+		$('#tableClick tr').on('click', function() {
+			var currentRow = $(this).closest('tr');
+			var col1 = currentRow.find('td:eq(0)').text();
+		});
+	});
+</script>
+
+
 <style>
 .container {
 	width: 70%;
@@ -32,36 +59,22 @@
 	margin-top: 3%;
 }
 
-.page-icon li {
+.page-center {
+	width: 100%;
+	justify-content: center;
 	text-align: center;
-	margin-left: 40%;
-	margin-right: -40%;
+}
+
+.page-icon li {
 	display: block;
 	width: 10%;
 	height: 10%;
 }
 
-.background-new {
-	width: 100%;
-	min-height: 100vh;
-	background: #c4d3f6;
-	display: -webkit-box;
-	display: -webkit-flex;
-	display: -moz-box;
-	display: -ms-flexbox;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	flex-wrap: wrap;
-	padding: 33px 30px;
-	display: -webkit-flex;
-	display: -moz-box;
-	display: -ms-flexbox;
-	display: flex;
-	display: -moz-box;
-	display: -ms-flexbox;
-	display: flex;
+.setting-cell {
+	margin-left: 30px;
 }
+
 </style>
 
 
@@ -153,6 +166,7 @@ button:hover {
 iframe {
 	border: none !important;
 }
+
 /*//////////////////////////////////////////////////////////////////
 [ Table ]*/
 .limiter {
@@ -181,7 +195,6 @@ iframe {
 	display: -ms-flexbox;
 	display: flex;
 	display: -ms-flexbox;
-	display: flex;
 	display: flex;
 }
 
@@ -295,6 +308,11 @@ iframe {
 	cursor: pointer;
 }
 
+.tr-hover: {
+	background-color: #ececff;
+	cursor: pointer;
+}
+
 @media ( max-width : 768px) {
 	.row {
 		border-bottom: 1px solid #f2f2f2;
@@ -355,9 +373,9 @@ iframe {
 	<%
 	int count = 0;
 
-	String sql = "select * from abroadMusic order by 1 desc limit 10";
-	String sql2 = "select count(*) from abroadMusic";
-	String sql3 = "select * from aboradMusic where abrno < ? order by abrno desc limit 10";
+	String sql = "select * from contentAll order by 1 desc limit 10";
+	String sql2 = "select count(*) from contentAll";
+	String sql3 = "select * from contentAll where contentNo < ? order by contentNo desc limit 10";
 
 	Statement stat = null;
 	ResultSet rs = null;
@@ -430,106 +448,163 @@ iframe {
 				</div>
 			</nav>
 			<!-- Page content-->
-			<div class="background-new">
-				<%
-				while (rs1.next()) {
-					while (rs.next()) {
-						count = rs.getInt(1);
-						break;
-					}
-				}
+			<%
+			while (rs1.next()) {
+				count = rs1.getInt(1);
+				break;
+			}
+			int countabrno = 0;
+			while (rs.next()) {
+				countabrno = rs.getInt(1);
+				break;
+			}
 
-				final int ROWSIZE = 10; // 한 페이지에 보일 게시물 
+			final int ROWSIZE = 6; // 한 페이지에 보일 게시물
 
-				final int BLOCK = 5; // 아래에 보일 페이지 최대 개수 1-5 / 6-10
+			final int BLOCK = 5; // 아래에 보일 페이지 최대 개수 1-5 / 6-10
 
-				int pg = 1; // 기본 페이지 			
+			int pg = 1; // 기본 페이지 			
 
-				if (request.getParameter("pg") != null) {
-					pg = Integer.parseInt(request.getParameter("pg"));
-				}
+			if (request.getParameter("pg") != null) {
+				pg = Integer.parseInt(request.getParameter("pg"));
+			}
+			int start = (pg * (ROWSIZE)) - (ROWSIZE);
+			int end = (pg * ROWSIZE);
 
-				int start = (pg * ROWSIZE) - (ROWSIZE - 1);
-				int end = (pg * ROWSIZE);
+			int allPage = 0; // 전체 페이지 
 
-				int allPage = 0; // 전체 페이지 
+			int startPage = ((pg - 1) / BLOCK * BLOCK) + 1;
+			int endPage = ((pg - 1) / BLOCK * BLOCK) + BLOCK;
 
-				int startPage = ((pg - 1) / BLOCK * BLOCK) + 1;
-				int endPage = ((pg - 1) / BLOCK * BLOCK) + BLOCK;
+			allPage = (int) Math.ceil(count / (double) ROWSIZE);
 
-				allPage = (int) Math.ceil(count / (double) ROWSIZE);
+			if (endPage > allPage) {
+				endPage = allPage;
+			}
 
-				if (endPage > allPage) {
-					endPage = allPage;
-				}
+			Statement stat2 = null;
+			ResultSet rs2 = null;
 
-				Statement stat2 = null;
-				ResultSet rs2 = null;
+			String sqlList = "SELECT * from contentAll order by 1 limit " + start + ", " + 6 + "";
 
-				String sqlList = "SELECT * from abroadMusic where abrno >= " + start + " and abrno <= " + end + " order by 1";
+			stat2 = conn.createStatement(); /* Statment 객체생성 */
+			rs2 = stat2.executeQuery(sqlList);
 
-				stat2 = conn.createStatement(); /* Statment 객체생성 */
-				rs2 = stat2.executeQuery(sqlList);
-				%>
-				<%
-				response.setContentType("text/html;charset=utf8");
-				request.setCharacterEncoding("utf-8");
-				%>
-				<a href="qaWrite.jsp" class="btn btn-primary2 pull-right">질문
-					등록하기</a>
-				<div class="page-icon">
-					<nav aria-label="Page navigation">
-						<ul class="pagination pagination-lg">
-							<%
-							if (pg > BLOCK) {
-							%>
-							<li class="page-item"><a href="abroadMainBoard.jsp?pg=1"
-								class="page-link">맨 앞</a></li>
-							<li class="page-item"><a
-								href="abroadMainBoard.jsp?pg=<%=startPage - 1%>"
-								class="page-link">이전</a></li>
-
-							<%
-							}
-							%>
-
-							<%
-							for (int i = startPage; i <= endPage; i++) {
-								if (i == pg) {
-							%>
-							<li class="page-item"><a class="page-link"><b>[<%=i%>]
-								</b></a></li>
-							<%
-							} else {
-							%>
-							<li class="page-item"><a
-								href="abroadMainBoard.jsp?pg=<%=i%>" class="page-link">[<%=i%>]
-							</a></li>
-							<%
-							}
-							}
-							%>
-
-							<%
-							if (endPage < allPage) {
-							%>
-							<li class="page-item"><a
-								href="abroadMainBoard.jsp?pg=<%=endPage + 1%>" class="page-link">다음</a></li>
-							<li class="page-item"><a
-								href="abroadMainBoard.jsp?pg=<%=allPage%>" class="page-link">맨
-									뒤</a>
-						</ul>
+			ArrayList<contentAll> list = new ArrayList<>();
+			while (rs2.next()) {
+				contentAll contentAll = new contentAll();
+				contentAll.setContentNo(rs2.getInt(1));
+				contentAll.setContentTitle(rs2.getString(2));
+				contentAll.setContentWrite(rs2.getString(3));
+				contentAll.setUserNick(rs2.getString(4));
+				contentAll.setContentDate(rs2.getString(5));
+				list.add(contentAll); // 생성된 abroadMusic 객체를 리스트에 저장
+			}
+			request.setAttribute("count", count);
+			request.setAttribute("list", list); // list를 request 영역에 저장
+			%>
+			<div class="limiter">
+				<div class="container-table100">
+					<div class="wrap-table100">
+						<a
+							style="margin-bottom: 20%; margin-top: 20%; margin-left: 40%; font-size: 2.25rem; background-color: #c4d3f6;">질문
+							목록</a>
+						<div class="table">
+							<a>총 등록된 질문의 수: ${count }</a>
+							<div class="row header">
+								<table style="flex: 0.5;">
+									<tr>
+										<td><div class="cell">번호</div></td>
+										<td><div class="cell">제목</div></td>
+										<td><div class="cell"><a style="margin-left: 35px;">작성자</a></div></td>
+										<td><div class="cell"><a style="margin-right: 70px; margin-left: 70px;">날짜</a></div></td>
+										<c:if test="${userId eq 'admin' }">
+											<td><div class="cell"><a style="margin-left: 50px;">삭제</a></div></td>
+										</c:if>
+									</tr>
+								</table>
+							</div>
+							<div class="row">
+								<c:forEach var="contentAll" items="${list }">
+									<table id="tableClick" class="text-left"
+										style="flex: 0.5; table-layout: fixed;">
+										<tr class="tr-hover">
+											<td><div class="cell" data-title="번호" id="contentNo">
+													${contentAll.getContentNo() }</div></td>
+											<td><div class="cell" data-title="제목">
+													${contentAll.getContentTitle() }</div></td>
+											<td><div class="cell" data-title="작성자"><a style="margin-left: 15px;">${contentAll.getUserNick() }</a></div></td>
+											<td><div class="cell" data-title="게시 날짜">${contentAll.getContentDate() }</div></td>
+											<c:if test="${userId eq 'admin' }">
+												<td id="btndelete"><input type="submit" value="삭제"
+													class="btn btn-danger"
+													style="width: 80px; height: 40px; margin-left: 55px;"></td>
+											</c:if>
+										</tr>
+									</table>
+								</c:forEach>
+							</div>
+						</div>
 						<%
-						}
-						rs.close();
-						rs1.close();
-						stat.close();
-						stat1.close();
-						conn.close();
-						stat2.close();
-						stat2.close();
+						response.setContentType("text/html;charset=utf8");
+						request.setCharacterEncoding("utf-8");
 						%>
-					</nav>
+						<a href="contentWrite.jsp" class="btn btn-primary2 pull-right">질문
+							등록하기</a>
+						<div class="page-icon">
+							<nav aria-label="Page navigation">
+								<ul class="pagination pagination-lg page-center">
+									<%
+									if (pg > BLOCK) {
+									%>
+									<li class="page-item"><a href="qaMainBoard.jsp?pg=1"
+										class="page-link">맨 앞</a></li>
+									<li class="page-item"><a
+										href="qaMainBoard.jsp?pg=<%=startPage - 1%>" class="page-link">이전</a></li>
+
+									<%
+									}
+									%>
+
+									<%
+									for (int i = startPage; i <= endPage; i++) {
+										if (i == pg) {
+									%>
+									<li class="page-item"><a class="page-link"><b>[<%=i%>]
+										</b></a></li>
+									<%
+									} else {
+									%>
+									<li class="page-item"><a href="qaMainBoard.jsp?pg=<%=i%>"
+										class="page-link">[<%=i%>]
+									</a></li>
+									<%
+									}
+									}
+									%>
+
+									<%
+									if (endPage < allPage) {
+									%>
+									<li class="page-item"><a
+										href="qaMainBoard.jsp?pg=<%=endPage + 1%>" class="page-link">다음</a></li>
+									<li class="page-item"><a
+										href="qaMainBoard.jsp?pg=<%=allPage%>" class="page-link">맨
+											뒤</a>
+								</ul>
+								<%
+								}
+								rs.close();
+								rs1.close();
+								stat.close();
+								stat1.close();
+								conn.close();
+								stat2.close();
+								stat2.close();
+								%>
+							</nav>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>
