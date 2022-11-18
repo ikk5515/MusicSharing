@@ -55,7 +55,7 @@
 		.href-font:hover{color:#15967D;border-color:#15967D}
 		
 		.btn-num1{margin-left: 100%; width: 35%;height: 80%; bottom: -10px; position: absolute; font-size: 3rem; text-align: center;}
-		.btn-num2{margin-left: 107.5%; width: 35%;font-size: 2rem;text-align: center; left: -15px ;padding-botton: 10%;position: absolute;}
+		.btn-num2{margin-left: 106%; width: 35%;font-size: 2rem;text-align: center; left: -15px ;padding-botton: 10%;position: absolute;}
 		
 		
 		.btn-primary2{color:#fff;background-color:#1abc9c;border-color:#1abc9c}
