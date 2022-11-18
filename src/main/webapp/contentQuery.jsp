@@ -18,6 +18,8 @@
 	int contentNo;
 	String contentTitle = request.getParameter("contentTitle");
 	String contentWrite = request.getParameter("contentWrite");
+	
+	contentWrite = contentWrite.replace("\r\n", "<br>");
 	String userId = (String) session.getAttribute("userId");
 
 	PreparedStatement pstat = null;
