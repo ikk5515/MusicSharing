@@ -184,9 +184,10 @@ iframe {
 }
 
 .wrap-table100 {
-	width: 960px;
+	width: 1100px;
 	border-radius: 10px;
 	overflow: hidden;
+	min-height: 75vh;
 }
 
 .table {
@@ -254,7 +255,6 @@ iframe {
 	font-weight: unset !important;
 	padding-top: 20px;
 	padding-bottom: 20px;
-	border-bottom: 1px solid #f2f2f2;
 }
 
 .row.header .cell {
@@ -502,7 +502,7 @@ iframe {
 										<td><div class="cell">유튜브</div></td>
 										<td><div class="cell">장르</div></td>
 										<td><div class="cell">작성자</div></td>
-										<td><div class="cell">게시 날짜</div></td>
+										<td><div class="cell">등록일</div></td>
 										<c:if test="${userId eq 'admin' }">
 											<td><div class="cell">삭제</div></td>
 										</c:if>
@@ -511,23 +511,17 @@ iframe {
 							</div>
 							<div class="row">
 								<c:forEach var="abroadMusic" items="${list }">
-									<table style="flex: 0.5; table-layout: fixed;">
+									<table style="flex: 0.5; table-layout: fixed; height: 85px;">
 										<tr class="tr-hover">
-											<td><div class="cell" data-title="번호">
-													${abroadMusic.getAbrno() }</div></td>
-											<td><div class="cell" data-title="제목">
-													${abroadMusic.getAbrTitle() }</div></td>
-											<td><div class="cell" data-title="가수">
-													${abroadMusic.getAbrSinger() }</div></td>
+											<td><div class="cell" data-title="번호">${abroadMusic.getAbrno() }</div></td>
+											<td><div class="cell" data-title="제목">${abroadMusic.getAbrTitle() }</div></td>
+											<td><div class="cell" data-title="가수">${abroadMusic.getAbrSinger() }</div></td>
 											<td><div class="cell" data-title="유튜브">
-													<a href="${abroadMusic.getAbrYoutube()}"><img
-														src="img/play-button.png"
-														style="width: 35px; height: 35px;"></a>
-												</div></td>
-											<td><div class="cell" data-title="장르">
-													${abroadMusic.getAbrKind() }</div></td>
+												<a href="${abroadMusic.getAbrYoutube()}"><img src="img/play-button.png" style="width: 35px; height: 35px;"></a>
+											</div></td>
+											<td><div class="cell" data-title="장르">${abroadMusic.getAbrKind() }</div></td>
 											<td><div class="cell" data-title="작성자">${abroadMusic.getUserNick() }</div></td>
-											<td><div class="cell" data-title="게시 날짜">${abroadMusic.getAbrdate() }</div></td>
+											<td><div class="cell" data-title="등록일">${abroadMusic.getAbrdate() }</div></td>
 											<c:if test="${userId eq 'admin' }">
 												<td id="btndelete"><input type="submit" value="삭제"
 													class="btn btn-danger"

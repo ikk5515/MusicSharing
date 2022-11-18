@@ -189,9 +189,10 @@ iframe {
 }
 
 .wrap-table100 {
-	width: 960px;
+	width: 1100px;
 	border-radius: 10px;
 	overflow: hidden;
+	min-height: 75vh;
 }
 
 .table {
@@ -259,7 +260,6 @@ iframe {
 	font-weight: unset !important;
 	padding-top: 20px;
 	padding-bottom: 20px;
-	border-bottom: 1px solid #f2f2f2;
 }
 
 .row.header .cell {
@@ -509,7 +509,7 @@ iframe {
 										<td><div class="cell">유튜브</div></td>
 										<td><div class="cell">장르</div></td>
 										<td><div class="cell">작성자</div></td>
-										<td><div class="cell">게시 날짜</div></td>
+										<td><div class="cell">등록일</div></td>
 										<c:if test="${userId eq 'admin' }">
 											<td><div class="cell">삭제</div></td>
 										</c:if>
@@ -518,7 +518,7 @@ iframe {
 							</div>
 							<div class="row">
 								<c:forEach var="korMusic" items="${list }">
-									<table style="flex: 0.5; table-layout: fixed;">
+									<table style="flex: 0.5; table-layout: fixed; height: 85px;">
 										<tr class="tr-hover">
 											<td><div class="cell" data-title="번호" id="korno">
 													${korMusic.getKorno() }</div></td>
