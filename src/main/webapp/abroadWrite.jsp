@@ -160,7 +160,7 @@ input[type="text"]:focus {
 							링크</label>
 						<div class="col-sm-5 col-xs-12">
 							<input class="form-control" id="abrYoutube" name="abrYoutube"
-								placeholder="https://youtube.com" type="text" />
+								placeholder="https://youtube.com" type="url" />
 						</div>
 					</div>
 					<div class="form-group row">
