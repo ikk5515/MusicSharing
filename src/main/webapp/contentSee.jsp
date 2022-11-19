@@ -36,11 +36,48 @@
 		});
 	});
 </script>
+<!-- <script type="text/javascript">
+	$('document').ready(
+			function() {
+				$('#btnWrite input').on(
+						'click',
+						function() {
+							if (!confirm("댓글을 등록 하시겠습니까?")) {
+								return false;
+							} else {
+								var currentRow = $(this).parent().parent()
+										.parent().parent().parent();
+								var col1 = currentRow.find('td:eq(1)').text();
+								var currentRow2 = $(this).parent();
+								var col2 = currentRow2.find('td:eq(0)').text();
+								window.alert(col2);
+								location.href = "commentQuery.jsp?contentNo="
+										+ col1 + "&commentWrite=" + col2;
+								return false;
+							}
+
+						});
+			});
+</script> -->
+<script type="text/javascript">
+	function check() {
+		if (!form.commentWrite.value) {
+			alert("댓글을 입력하세요.");
+			form.commentWrite.focus();
+			return false;
+		}
+	}
+</script>
 
 <style>
 .container {
 	width: 60%;
 	margin-top: 5%;
+}
+
+.container2 {
+	width: 100%;
+	margin-left: 13%;
 }
 
 .page-center {
@@ -155,7 +192,7 @@ iframe {
 
 .container-table100 {
 	width: 100%;
-	min-height: 70vh;
+	min-height: 85vh;
 	background: #c4d3f6;
 	display: -webkit-box;
 	display: -webkit-flex;
@@ -456,111 +493,82 @@ iframe {
 				<div class="container-table100">
 					<div class="wrap-table100">
 						<div class="table">
-							<div class="row">
-								<table class="table"
-									style="text-align: center; border-bottom: #c4d3f6">
-									<tr>
-										<td style="width: 25%; height: 80px; background: #6c7ae0"
-											id="contentNo"><a
-											style="font-size: 1.5rem; color: #fff">게시물 번호</a></td>
-										<td colspan="2"><a style="font-size: 1.5rem;">${contentNo }</a></td>
-									</tr>
-									<tr>
-										<td style="width: 25%; height: 80px; background: #6c7ae0"><a
-											style="font-size: 1.5rem; color: #fff">제목</a></td>
-										<td colspan="2"><a style="font-size: 1.5rem;">${contentTitle }</a></td>
-									</tr>
-									<tr>
-										<td style="height: 80px; background: #6c7ae0"><a
-											style="font-size: 1.75rem; color: #fff">작성자</a></td>
-										<td colspan="2"><a style="font-size: 1.5rem;">${userNick }</a></td>
-									</tr>
-									<tr>
-										<td style="height: 80px; background: #6c7ae0"><a
-											style="font-size: 1.75rem; color: #fff">작성일자</a></td>
-										<td colspan="2"><a style="font-size: 1.5rem;">${contentDate }</a></td>
-									</tr>
-									<tr>
-										<td style="height: 80px; background: #6c7ae0;"><div
-												class="helper"
-												style="display: inline-block; vertical-align: middle;">
-												<a
-													style="font-size: 1.5rem; color: #fff; vertical-align: center;">내용</a>
-											</div></td>
-										<td colspan="2" style="min-height: 200px; text-align: left;"><a
-											style="font-size: 1.5rem;">${contentWrite }</a></td>
-									</tr>
-									<tr style="background: #c4d3f6">
-										<td></td>
-										<td style="height: 80px; background: #c4d3f6"><input
-											onclick="location.href='qaMainBoard.jsp'" value="목록"
-											class="btn btn-primary2"
-											style="height: 70px; width: 120px; margin-left: 85%;"></td>
-									</tr>
-									<tr style="background: #c4d3f6">
-									<td>
-										<td id="btndelete" style="height: 70px;"><c:if
-												test="${userId eq 'admin' || userId eq userNick }">
-												<input type="submit" value="삭제" id="btndelete"
-													class="btn btn-danger"
-													style="height: 70px; width: 120px; margin-left: 85%;">
-											</c:if></td>
-									</tr>
-								</table>
-								<%
-								response.setContentType("text/html;charset=utf8");
-								request.setCharacterEncoding("utf-8");
-								%>
-								<%-- 								<div class="page-icon">
-									<nav aria-label="Page navigation">
-										<ul class="pagination pagination-lg page-center">
+							<div class="row" style="padding-left: 0px; padding-right: 0px;">
+								<form action="commentQuery.jsp" id="form" name="form"
+									onsubmit="return check()"
+									style="padding-left: 0px; padding-right: 0px;">
+									<table class="table"
+										style="text-align: center; border-bottom: #c4d3f6">
+										<tr>
+											<td style="width: 25%; height: 80px; background: #6c7ae0"
+												id="contentNo"><a
+												style="font-size: 1.5rem; color: #fff">게시물 번호</a></td>
 											<%
-											if (pg > BLOCK) {
+											session.setAttribute("contentNo", contentNo);
 											%>
-											<li class="page-item"><a href="qaMainBoard.jsp?pg=1"
-												class="page-link">맨 앞</a></li>
-											<li class="page-item"><a
-												href="qaMainBoard.jsp?pg=<%=startPage - 1%>"
-												class="page-link">이전</a></li>
-
-											<%
-											}
-											%>
-
-											<%
-											for (int i = startPage; i <= endPage; i++) {
-												if (i == pg) {
-											%>
-											<li class="page-item"><a class="page-link"><b>[<%=i%>]
-												</b></a></li>
-											<%
-											} else {
-											%>
-											<li class="page-item"><a
-												href="qaMainBoard.jsp?pg=<%=i%>" class="page-link">[<%=i%>]
-											</a></li>
-											<%
-											}
-											}
-											%>
-
-											<%
-											if (endPage < allPage) {
-											%>
-											<li class="page-item"><a
-												href="qaMainBoard.jsp?pg=<%=endPage + 1%>" class="page-link">다음</a></li>
-											<li class="page-item"><a
-												href="qaMainBoard.jsp?pg=<%=allPage%>" class="page-link">맨
-													뒤</a>
-										</ul>
-										<%
-										}
-										rs.close();
-										stat.close();
-										conn.close();
-										%>
-									</nav>
-								</div> --%>
+											<td colspan="2" id="contentNo"><a
+												style="font-size: 1.5rem;">${contentNo }</a></td>
+										</tr>
+										<tr>
+											<td style="width: 25%; height: 80px; background: #6c7ae0"><a
+												style="font-size: 1.5rem; color: #fff">제목</a></td>
+											<td colspan="2"><a style="font-size: 1.5rem;">${contentTitle }</a></td>
+										</tr>
+										<tr>
+											<td style="height: 80px; background: #6c7ae0"><a
+												style="font-size: 1.75rem; color: #fff">작성자</a></td>
+											<td colspan="2"><a style="font-size: 1.5rem;">${userNick }</a></td>
+										</tr>
+										<tr>
+											<td style="height: 80px; background: #6c7ae0"><a
+												style="font-size: 1.75rem; color: #fff">작성일자</a></td>
+											<td colspan="2"><a style="font-size: 1.5rem;">${contentDate }</a></td>
+										</tr>
+										<tr>
+											<td style="height: 80px; background: #6c7ae0;"><a
+												style="font-size: 1.5rem; color: #fff; vertical-align: center;">내용</a>
+											</td>
+											<td colspan="2" style="min-height: 220px; text-align: left;"><a
+												style="font-size: 1.5rem;">${contentWrite }</a></td>
+										</tr>
+										<tr style="background: #c4d3f6">
+											<td></td>
+											<td
+												style="height: 80px; background: #c4d3f6; display: flex; justify-content: flex-end;"><input
+												onclick="location.href='qaMainBoard.jsp'" value="목록"
+												class="btn btn-primary2"
+												style="height: 50px; width: 100px; margin-right: 10px;">
+											</td>
+											<td id="btndelete"><c:if
+													test="${userId eq 'admin' || userId eq userNick }">
+													<input type="submit" value="삭제" id="btndelete"
+														class="btn btn-danger" style="height: 50px; width: 100px;">
+												</c:if></td>
+										</tr>
+										<tr style="background: #c4d3f6;">
+											<td style="height: 80px; background: #c4d3f6;"><a
+												style="font-size: 1.5rem; color: #000; display: inline-block; margin-top: 30%;">댓글</a>
+											</td>
+											<td style=" margin-top: 5%;">
+												<div class="col-sm-5 col-xs-12" style="background: #c4d3f6; margin-top: 10%;">
+													<textarea class="form-control" id="commentWrite"
+														style="width: 650px; height: 60px;" name="commentWrite"
+														placeholder="댓글"></textarea>
+												</div>
+											</td>
+											<td id="btnWrite"><button
+													class="btn btn-success btn-num1" type="submit"
+													value="댓글 등록" style="height: 50px; width: 120px;margin-top: 70px;"
+													id="submit">댓글등록</button></td>
+										</tr>
+										<tr style="background: #c4d3f6;">
+											<td></td>
+											<td></td>
+											<td><input onclick="location.href='commentPage.jsp'"
+												class="btn btn-primary btn-num1" value="댓글 보기"
+												style="height: 50px; width: 120px;"></td>
+									</table>
+								</form>
 							</div>
 						</div>
 					</div>
