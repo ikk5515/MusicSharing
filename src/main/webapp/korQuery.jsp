@@ -15,7 +15,7 @@
 
 	<%
 	request.setCharacterEncoding("utf-8");
-	int abrno;
+	int korno;
 	String korTitle = request.getParameter("korTitle");
 	String korSinger = request.getParameter("korSinger");
 	String korYoutube = request.getParameter("korYoutube");
@@ -41,12 +41,12 @@
 	pstat2 = conn.prepareStatement(sql3);
 	rs2 = pstat2.executeQuery();
 	if (rs2.next()) {
-		abrno = rs2.getInt(1) + 1;
+		korno = rs2.getInt(1) + 1;
 	} else {
-		abrno = 1;
+		korno = 1;
 	}
 	
-	// PreparedStatement 생성 => 테이블에 abrTitle가 이미 있는지 체크
+	// PreparedStatement 생성 => 테이블에 korTitle가 이미 있는지 체크
 	pstat1 = conn.prepareStatement(sql1);
 	pstat1.setString(1, korTitle);
 	rs1 = pstat1.executeQuery();
@@ -57,7 +57,7 @@
 	} else {
 		// 같은 노래가 없는 경우 => 입력 가능
 		pstat = conn.prepareStatement(sql2);
-		pstat.setInt(1, abrno);
+		pstat.setInt(1, korno);
 		pstat.setString(2, korTitle);
 		pstat.setString(3, korSinger);
 		pstat.setString(4, korYoutube);

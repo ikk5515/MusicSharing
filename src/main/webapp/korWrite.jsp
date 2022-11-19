@@ -145,28 +145,28 @@ input[type="text"]:focus {
 						<label class="col-sm-12 col-xs-12 col-form-label" for="title"
 							style="font-weight: 1000; font-size: 1.25rem;">곡명</label>
 						<div class="col-sm-5 col-xs-12">
-							<input class="form-control" id="abrTitle" name="korTitle"
+							<input class="form-control" id="korTitle" name="korTitle"
 								placeholder="곡명" type="text" />
 						</div>
 					</div>
 					<div class="form-group row">
-						<label class="col-sm-12 col-xs-12 col-form-label" for="title"
+						<label class="col-sm-12 col-xs-12 col-form-label" for="korSinger"
 							style="font-weight: 1000; font-size: 1.25rem;">가수</label>
 						<div class="col-sm-5 col-xs-12">
-							<input class="form-control" id="abrSinger" name="korSinger"
+							<input class="form-control" id="korSinger" name="korSinger"
 								placeholder="가수" type="text" />
 						</div>
 					</div>
 					<div class="form-group row">
-						<label class="col-sm-12 col-xs-12 col-form-label" for="title"
+						<label class="col-sm-12 col-xs-12 col-form-label" for="korYoutube"
 							style="font-weight: 1000; font-size: 1.25rem;">유튜브 링크</label>
 						<div class="col-sm-5 col-xs-12">
-							<input class="form-control" id="abrYoutube" name="korYoutube"
+							<input class="form-control" id="korYoutube" name="korYoutube"
 								placeholder="https://youtube.com" type="url" />
 						</div>
 					</div>
 					<div class="form-group row">
-						<label class="col-sm-12 col-xs-12 col-form-label" for="title"
+						<label class="col-sm-12 col-xs-12 col-form-label" for="korKind"
 							style="font-weight: 1000; font-size: 1.25rem;">장르</label><br>
 						<select name="korKind" id="abrKind" class="select-size btn-light"
 							style="margin-left: 12px; font-size: 1.25rem; height: 40px;">
