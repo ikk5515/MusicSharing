@@ -28,7 +28,7 @@
 			} else {
 				var currentRow = $(this).closest('tr');
 				var col1 = currentRow.find('td:eq(0)').text();
-				location.href = "deleteContent.jsp?contentNo=" + col1;
+				location.href = "deleteComment.jsp?commentNo=" + col1;
 				return false;
 			}
 
