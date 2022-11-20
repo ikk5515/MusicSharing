@@ -51,11 +51,6 @@
 	pstat1.setInt(1, commentNo);
 	rs1 = pstat1.executeQuery();
 	
-	System.out.println(commentNo);
-	System.out.println(contentNo);
-	System.out.println(commentWrite);
-	System.out.println(userNick);
-	
 	if (rs1.next()) {
 		// 테이블에 이미 같은 곡이 있을경우
 		commentNoCheck = 1;
