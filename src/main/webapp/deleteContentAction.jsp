@@ -9,23 +9,16 @@
 </head>
 <body>
 	<c:choose>
-		<c:when test="${contentNoCheck != 1}">
+		<c:when test="${result > 0}">
+			<script type="text/javascript">
+				alert("삭제 완료.");
+				location.href = "qaMainBoard.jsp";
+			</script>
+		</c:when>
+		<c:when test="${contentNo == -1}">
 			<script type="text/javascript">
 				alert("유효하지 않은 글입니다.");
 				location.href = "qaMainBoard.jsp";
-			</script>
-		</c:when>
-		<c:when test="${result == 1}">
-			<script type="text/javascript">
-				alert("삭제 완료");
-				location.href = "qaMainBoard.jsp";
-			</script>
-		</c:when>
-
-		<c:when test="${result != 1}">
-			<script type="text/javascript">
-				alert("삭제 실패");
-				history.go(-1);
 			</script>
 		</c:when>
 	</c:choose>
