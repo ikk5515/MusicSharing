@@ -54,8 +54,8 @@
 		.a{text-decoration-color : #1abc9c;}
 		.href-font:hover{color:#15967D;border-color:#15967D}
 		
-		.btn-num1{margin-left: 100%; width: 35%;height: 80%; bottom: -10px; position: absolute; font-size: 3rem; text-align: center;}
-		.btn-num2{margin-left: 106%; width: 35%;font-size: 2rem;text-align: center; left: -15px ;padding-botton: 10%;position: absolute;}
+		.btn-num1{left: 450px; width: 35%;height: 80%; bottom: 10px; position: absolute; font-size: 3rem; text-align: center;}
+		.btn-num2{left: 450px; width: 35%;font-size: 2rem;text-align: center;bottom: -60px;position: absolute;}
 		
 		
 		.btn-primary2{color:#fff;background-color:#1abc9c;border-color:#1abc9c}
@@ -99,7 +99,7 @@
          <div class="col-md-6 col-sm-12">
             <div class="login-form">
                <form action="loginProc.jsp" name="form" onsubmit="return check()">
-                  <div action="loginProc.jsp" class="form-group">
+                  <div class="form-group">
                      <label class="label-font-size">아이디</label>
                      <input type="text" class="form-control" name="userId" placeholder="아이디">
                   </div>
