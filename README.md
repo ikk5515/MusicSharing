@@ -4,7 +4,6 @@
 JSP와 MySQL을 이용하여 구현한 음악 추천 사이트입니다.
 
 ## 🗨 Description
-![201944026_김인기_project수정본_page-0001](https://user-images.githubusercontent.com/22267184/225922106-4e8e6bbd-206e-43d0-b296-ec4284c2692b.jpg)
 ![201944026_김인기_project수정본_page-0005](https://user-images.githubusercontent.com/22267184/225922150-92bf276e-6e7d-4ff2-a5e4-9f7ddb25f1cb.jpg)
 ![201944026_김인기_project수정본3_page-0006](https://user-images.githubusercontent.com/22267184/225925361-00b31bdf-52a9-4c97-8d33-7be29be1063b.jpg)
 ![201944026_김인기_project수정본3_page-0007](https://user-images.githubusercontent.com/22267184/225925119-819b925a-c1ca-4216-b7e0-3ee5fb2f2744.jpg)
