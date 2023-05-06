@@ -1,7 +1,22 @@
-# JSP Web Project
+# Music Sharing
 
-## 서비스 설명
-JSP와 MySQL을 이용하여 구현한 음악 추천 사이트입니다.
+<h1>서비스 설명</h1>
+JSP와 MySQL을 이용하여 구현한 음악 추천 및  사이트입니다.
+
+<h1>개발환경</h3>
+<li>Eclipse</li>
+<li>Github</li>
+<li>Apache Tomcat</li>
+<li>MySQL</li>
+<h1>사용기술</h1>
+<h3>BackEnd</h3>
+<li>JSP</li>
+<h3>Database</h3>
+<li>MySQL</li>
+<h3>FrontEnd</h3>
+<li>html</li>
+<li>css</li>
+<li>bootstrap</li>
 
 ## 🗨 Description
 ![201944026_김인기_project수정본_page-0005](https://user-images.githubusercontent.com/22267184/225922150-92bf276e-6e7d-4ff2-a5e4-9f7ddb25f1cb.jpg)
