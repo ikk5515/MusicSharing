@@ -10,12 +10,14 @@ JSP와 MySQL을 이용하여 구현한 음악 추천 및  사이트입니다.
 <li>MySQL</li>
 <h1>사용기술</h1>
 <h3>BackEnd</h3>
+<li>JAVA</li>
 <li>JSP</li>
 <h3>Database</h3>
 <li>MySQL</li>
 <h3>FrontEnd</h3>
 <li>html</li>
 <li>css</li>
+<li>javascript</li>
 <li>bootstrap</li>
 
 ## 🗨 Description
